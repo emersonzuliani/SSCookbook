@@ -3,14 +3,19 @@
 
 <?php
 
-$rec_codigo = 0;
-$rec_nome = '';
-$cat_codigo = 0;
-$sca_codigo = 0;
-$cla_codigo = 0;
-$rec_tmp_preparo = 0;
-$rec_rendimento = 0;
-
+if (isset($receita)) {
+	foreach($receita as $rec => $value) {
+		$$rec = $value;		
+	} 
+} else {
+	$rec_codigo = 0;
+	$rec_nome = '';
+	$cat_codigo = 0;
+	$sca_codigo = 0;
+	$cla_codigo = 0;
+	$rec_tmp_preparo = 0;
+	$rec_rendimento = 0;
+}
 
 //classificações para selecionar
 $classif = $classificacao;
@@ -42,17 +47,17 @@ echo form_error("rec_codigo");
 
 //cat_codigo - categorias
 echo form_label("Categoria", "cat_codigo");
-echo form_dropdown('cat_codigo',$opccat,'','id="cat_codigo" class = "form-control" onchange="load_dropdown_content($(\'#sca_codigo\'), this.value)"');
+echo form_dropdown('cat_codigo',$opccat,array($cat_codigo),'id="cat_codigo" class = "form-control" onchange="load_dropdown_content($(\'#sca_codigo\'), this.value)"');
 echo form_error("cat_codigo");
 
 //sca_codigo - sub-categorias
 echo form_label("Sub-Categoria", "sca_codigo");
-echo form_dropdown('sca_codigo',array("0" => '...'),'','id="sca_codigo" class = "form-control"');
+echo form_dropdown('sca_codigo',array("0" => '...'),array($sca_codigo),"id='sca_codigo' class = 'form-control' ");
 echo form_error("sca_codigo");
 
 //cla_codigo - Classificação
 echo form_label("Classificacao", "cla_codigo");
-echo form_dropdown('cla_codigo',$opcclas,'','id="cla_codigo" class="form-control"');
+echo form_dropdown('cla_codigo',$opcclas,array($cla_codigo),'id="cla_codigo" class="form-control"');
 echo form_error("cla_codigo");
 echo '<br>';
 
@@ -224,6 +229,7 @@ echo form_close();
 
 ?>
 
+</div>
 <script type="text/javascript">
 
 function load_dropdown_content(field_dropdown, selected_value){
