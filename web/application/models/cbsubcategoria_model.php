@@ -60,6 +60,7 @@ class cbsubcategoria_model extends CI_Model {
 		$result = $this->db->get($this->tabela)->result_array();
 		
 		$opcsubclas = [];
+		$opcsubclas = array("0" => " ");
 		foreach ($result as $subcat) :
 			$opcsubclas[$subcat['sca_codigo']] = $subcat['sca_descricao'];
 		endforeach;

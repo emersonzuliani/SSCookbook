@@ -36,7 +36,27 @@ class cbreceita_model extends CI_Model {
 		
 	}
 	
-
+	public function buscarReceitas($criterio) {
+		$sql = "select A.*, B.cat_descricao, C.sca_descricao, D.cla_descricao 
+  				from CBRECEITA A,
+       				 cbcategoria B,
+       				 cbsubcategoria C,
+       				 cbclassificacao D       
+			   WHERE A.cat_codigo = B.cat_codigo 
+  				 AND A.cat_codigo = C.cat_codigo
+  				 AND A.sca_codigo = C.sca_codigo
+  				 AND A.cla_codigo = D.cla_codigo";
+		
+		foreach ($criterio as $cri) {
+			$sql .= " and " . $cri;
+		}
+		echo $sql;
+		
+		$query = $this->db->query($sql);
+		$res = $query->result_array();
+		
+		return $res;		
+	}
 	
 
 }

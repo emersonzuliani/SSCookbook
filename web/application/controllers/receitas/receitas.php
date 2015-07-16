@@ -100,10 +100,60 @@ class Receitas extends CI_Controller {
 		$this->load->view("cabecalho");
 		$this->load->view("receitas/receitas_form", $dados);
 		$this->load->view("rodape");
+	}
+	
+	public function filtroReceitas() {
+				
+		//carrega classificação
+		$this->load->model("classificacao_model");
+		$classificacao = $this->classificacao_model->listaTodos();
+		$dados = array("classificacao" => $classificacao);
 		
+		//carrega categorias
+		$this->load->model("cbcategoria_model");
+		$categoria = $this->cbcategoria_model->listaTodos();
+		$dados["categoria"] = $categoria;
+		
+		//carrega página de filtro de receitas
+		$this->load->view("cabecalho");
+		$this->load->view("receitas/receitas_filtro", $dados);
+		$this->load->view("rodape");
 		
 		
 	}
+	
+	public function buscar() {
+		//
+		$cat_codigo = $this->input->post("cat_codigo");
+		$sca_codigo = $this->input->post("sca_codigo");
+		$cla_codigo = $this->input->post("cla_codigo");
+		$rec_nome   = $this->input->post("rec_nome"); 
+
+		$criterio = [];
+		if ($cat_codigo > 0) {
+			$criterio[] = 'a.cat_codigo = ' . $cat_codigo;
+		}
+		if ($cat_codigo > 0) {
+			$criterio[] = 'a.sca_codigo = ' . $sca_codigo;
+		}
+		if ($cat_codigo >0) {
+			$criterio[] = 'a.cla_codigo = ' . $cla_codigo;
+		}
+		if ($rec_nome <> "") {
+			$criterio[] = "a.rec_nome like '".$rec_nome."%' ";
+		}
+		
+		$this->load->model("cbreceita_model");
+		$receitas = $this->cbreceita_model->buscarReceitas($criterio);
+		$dados = array("receitas" => $receitas);
+		
+		//carrega lista de receitas
+		$this->load->view("cabecalho");
+		$this->load->view("receitas/receitas_lista", $dados);
+		$this->load->view("rodape");
+		
+	}
+	
 	
 	
 	

@@ -25,7 +25,7 @@
           				</ul>
           			</li>     		
         			<li><?= anchor("/receitas/receitas", "Cadastrar Receitas") ?></li>
-        			<li><a href="#">Buscar Receitas</a></li>
+        			<li><?= anchor("/receitas/receitas/filtroReceitas", "Buscar Receitas") ?></li>
         			<li><a href="#">Favoritas</a></li>
         			<li><a href="#">Conversão de Medidas</a></li>        
       			</ul>	  
