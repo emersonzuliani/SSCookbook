@@ -4,6 +4,7 @@
 <div class="table-responsive">
 <table class="table table-condensed table-striped">
 	<tr>
+		<th>#</th>
 		<th>Nome</th>
 		<th>Ingredientes</th>
 		<th>Categoria</th>
@@ -16,10 +17,13 @@
 	<?php foreach($receitas as $lista) : ?>
 	<tr>
 		<td>
-		   <?= $lista["rec_nome"] ?>	
+			>
 		</td>
 		<td>
-		   <?= $lista["rec_ingredientes"] ?>		
+		   <?= anchor("/receitas/receitas/getReceita/".$lista["rec_codigo"], $lista["rec_nome"]) ?>	
+		</td>
+		<td>
+		   <?= $lista["rec_ingredientes"] ?>
 		</td>			
 		<td>
 		   <?= $lista["cat_descricao"] ?>

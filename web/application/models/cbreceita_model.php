@@ -49,14 +49,22 @@ class cbreceita_model extends CI_Model {
 		
 		foreach ($criterio as $cri) {
 			$sql .= " and " . $cri;
-		}
-		echo $sql;
+		}	
 		
 		$query = $this->db->query($sql);
 		$res = $query->result_array();
 		
 		return $res;		
 	}
+	
+	public function recupera($id) {
+		$res = ($this->db->get_where("cbreceita", array('rec_codigo' => $id))->row_array());
+		if ($res) {
+			return $res;
+		} else {
+			return FALSE;
+		}
+	}	
 	
 
 }

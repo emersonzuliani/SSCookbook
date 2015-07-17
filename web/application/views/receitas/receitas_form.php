@@ -15,6 +15,9 @@ if (isset($receita)) {
 	$cla_codigo = 0;
 	$rec_tmp_preparo = 0;
 	$rec_rendimento = 0;
+	$rec_ingredientes = "";
+	$rec_modopreparo = "";
+	$rec_observacoes = "";	
 }
 
 //classificações para selecionar
@@ -30,6 +33,14 @@ $opccat = array("0" => " ");
 foreach ($categorias as $cat) :
 	$opccat[$cat['cat_codigo']] = $cat['cat_descricao'];
 endforeach;
+
+//subcategoria para selecionar
+if (isset($subcategoria)) {
+	$opcsca = $subcategoria;
+} else {
+	$opcsca = null;
+}
+
 
 echo form_open("receitas/receitas/salvar");
 
@@ -51,8 +62,13 @@ echo form_dropdown('cat_codigo',$opccat,array($cat_codigo),'id="cat_codigo" clas
 echo form_error("cat_codigo");
 
 //sca_codigo - sub-categorias
+
 echo form_label("Sub-Categoria", "sca_codigo");
-echo form_dropdown('sca_codigo',array("0" => '...'),array($sca_codigo),"id='sca_codigo' class = 'form-control' ");
+if (isset($opcsca)) {
+	echo form_dropdown('sca_codigo',$opcsca, array($sca_codigo),"id='sca_codigo' class = 'form-control' ");
+} else {
+	echo form_dropdown('sca_codigo',array("0" => '...'),array($sca_codigo),"id='sca_codigo' class = 'form-control' ");
+}
 echo form_error("sca_codigo");
 
 //cla_codigo - Classificação
@@ -81,7 +97,7 @@ echo form_textarea(array(
 		"rows" => "3",
 		"id" => "rec_ingredientes",
 		"maxlength" => "2000",
-		"value" => set_value("rec_ingredientes","")));
+		"value" => $rec_ingredientes));
 echo form_error("rec_ingredientes");
 
 //rec_modopreparo
@@ -90,7 +106,7 @@ echo form_textarea(array(
 		"name" => "rec_modopreparo",
 		"class" => "form-control",
 		"id" => "rec_modopreparo",
-		"value" => set_value("rec_modopreparo","")));
+		"value" => $rec_modopreparo));
 echo form_error("rec_modopreparo");
 
 //rec_tmp_preparo
@@ -169,36 +185,36 @@ echo form_error("rec_nivel_dificuldade");
 //rec_classificação (inteiro - 1 a 5 estrelas)
 echo "<label class='radio-inline'>";
 echo form_radio(array(
-		"name" => "rec_classificação",
-		"id" => "rec_classificação"), '1', TRUE);
+		"name" => "rec_classificacao",
+		"id" => "rec_classificacao"), '1', TRUE);
 echo "1 </label>";
 
 echo "<label class='radio-inline'>";
 echo form_radio(array(
-		"name" => "rec_classificação",
-		"id" => "rec_classificação"), '2', FALSE);
+		"name" => "rec_classificacao",
+		"id" => "rec_classificacao"), '2', FALSE);
 echo "2 </label>";
 
 echo "<label class='radio-inline'>";
 echo form_radio(array(
-		"name" => "rec_classificação",
-		"id" => "rec_classificação"), '3', FALSE);
+		"name" => "rec_classificacao",
+		"id" => "rec_classificacao"), '3', FALSE);
 echo "3 </label>";
 
 echo "<label class='radio-inline'>";
 echo form_radio(array(
-		"name" => "rec_classificação",
-		"id" => "rec_classificação"), '4', FALSE);
+		"name" => "rec_classificacao",
+		"id" => "rec_classificacao"), '4', FALSE);
 echo "4 </label>";
 
 echo "<label class='radio-inline'>";
 echo form_radio(array(
-		"name" => "rec_classificação",
-		"id" => "rec_classificação"), '5', FALSE);
+		"name" => "rec_classificacao",
+		"id" => "rec_classificacao"), '5', FALSE);
 echo "5 </label>";
 
 
-echo form_error("rec_classificação");
+echo form_error("rec_classificacao");
 ?>
 </fieldset>
 </div>
@@ -210,7 +226,7 @@ echo form_textarea(array(
 		"name" => "rec_observacoes",
 		"class" => "form-control",
 		"id" => "rec_observacoes",
-		"value" => set_value("rec_observacoes","")));
+		"value" => $rec_observacoes));
 echo form_error("rec_observacoes");
 
 

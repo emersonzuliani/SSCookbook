@@ -94,6 +94,11 @@ class Receitas extends CI_Controller {
 		$categoria = $this->cbcategoria_model->listaTodos();
 		$dados["categoria"] = $categoria;
 		
+		//carrega subcategorias
+		$this->load->model('cbsubcategoria_model');
+		$subcat = $this->cbsubcategoria_model->getOptions($receita["cat_codigo"]);
+		$dados["subcategoria"] = $subcat; 
+
 		//carrega dados
 		$dados["receita"] = $receita;
 		
@@ -124,19 +129,34 @@ class Receitas extends CI_Controller {
 	
 	public function buscar() {
 		//
-		$cat_codigo = $this->input->post("cat_codigo");
-		$sca_codigo = $this->input->post("sca_codigo");
-		$cla_codigo = $this->input->post("cla_codigo");
+		if ($this->input->post("cat_codigo") !== null) {
+			$cat_codigo = (int)$this->input->post("cat_codigo");
+		} else {
+			$cat_codigo = 0;
+		}
+	
+		if ($this->input->post("sca_codigo") !== null) {
+			$sca_codigo = (int)$this->input->post("sca_codigo");
+		} else {
+			$sca_codigo = 0;
+		}		
+
+		if ($this->input->post("cla_codigo") !== null) {
+			$cla_codigo = (int)$this->input->post("cla_codigo");
+		} else {
+			$cla_codigo = 0;
+		}			
+		
 		$rec_nome   = $this->input->post("rec_nome"); 
 
 		$criterio = [];
 		if ($cat_codigo > 0) {
 			$criterio[] = 'a.cat_codigo = ' . $cat_codigo;
 		}
-		if ($cat_codigo > 0) {
+		if ($sca_codigo > 0) {
 			$criterio[] = 'a.sca_codigo = ' . $sca_codigo;
 		}
-		if ($cat_codigo >0) {
+		if ($cla_codigo >0) {
 			$criterio[] = 'a.cla_codigo = ' . $cla_codigo;
 		}
 		if ($rec_nome <> "") {
@@ -152,6 +172,15 @@ class Receitas extends CI_Controller {
 		$this->load->view("receitas/receitas_lista", $dados);
 		$this->load->view("rodape");
 		
+	}
+	
+	public function getReceita($id) {
+		//buscar receitas pelo ID
+		$this->load->model("cbreceita_model");
+		$receita = $this->cbreceita_model->recupera($id);
+		if ($receita) {
+			$this->mostraReceita($receita);
+		} 		
 	}
 	
 	
