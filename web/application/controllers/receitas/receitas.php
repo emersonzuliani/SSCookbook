@@ -183,9 +183,32 @@ class Receitas extends CI_Controller {
 		} 		
 	}
 	
+	public function excluir($id) {
+		//localiza receita		
+		$this->load->model("cbreceita_model");
+		$res = $this->cbreceita_model->recupera($id);
+		if ($res) {
+			$sql = $this->cbreceita_model->excluir($id);
+			$this->session->set_flashdata('success','Registro excluído: '. $id . $sql);
+		} else {
+			$this->session->set_flashdata('danger','Registro não localizado: '. $id);
+		}
+		redirect("/receitas/receitas/filtroReceitas");		
+	}
 	
-	
-	
+	public function imprimir($id) {
+		
+		$criterio[] = 'a.rec_codigo = ' . $id;
+		
+		$this->load->model("cbreceita_model");
+		$receitas = $this->cbreceita_model->buscarReceitas($criterio);
+		$dados = array("receitas" => $receitas);
+		
+		//carrega receita
+		$this->load->view("receitas/receita_imprimir", $dados);
+		
+	}
+
 }
 
 ?>

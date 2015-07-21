@@ -17,13 +17,15 @@
 	<?php foreach($receitas as $lista) : ?>
 	<tr>
 		<td>
-			>
+		   <?= anchor("/receitas/receitas/getReceita/{$lista["rec_codigo"]}",'<img src='. base_url("img/edit.png") . '>' ) ?>
+		   <?= anchor("/receitas/receitas/excluir/{$lista["rec_codigo"]}",'<img src='. base_url("img/delete.png") . '>' ) ?>
+		   <?= anchor_popup("/receitas/receitas/imprimir/{$lista["rec_codigo"]}",'<img src='. base_url("img/print.png") . '>' ) ?>
 		</td>
 		<td>
-		   <?= anchor("/receitas/receitas/getReceita/".$lista["rec_codigo"], $lista["rec_nome"]) ?>	
+		   <?= $lista["rec_nome"] ?>	
 		</td>
 		<td>
-		   <?= $lista["rec_ingredientes"] ?>
+		   <?= substr_replace($lista["rec_ingredientes"], '...', 30);  ?>
 		</td>			
 		<td>
 		   <?= $lista["cat_descricao"] ?>

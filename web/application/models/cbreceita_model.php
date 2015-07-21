@@ -66,6 +66,14 @@ class cbreceita_model extends CI_Model {
 		}
 	}	
 	
+	public function excluir($id) {
+		$this->db->where($this->primarykey, $id);
+		$this->db->delete($this->tabela);
+		//$sql = $this->db->get_compiled_delete($this->tabela);		
+		//return $sql;
+	}
+	
+	
 
 }
 
