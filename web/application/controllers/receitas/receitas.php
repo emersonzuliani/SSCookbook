@@ -160,7 +160,7 @@ class Receitas extends CI_Controller {
 			$criterio[] = 'a.cla_codigo = ' . $cla_codigo;
 		}
 		if ($rec_nome <> "") {
-			$criterio[] = "a.rec_nome like '".$rec_nome."%' ";
+			$criterio[] = "a.rec_nome like '%".$rec_nome."%' ";
 		}
 		
 		$this->load->model("cbreceita_model");
@@ -208,6 +208,7 @@ class Receitas extends CI_Controller {
 		$this->load->view("receitas/receita_imprimir", $dados);
 		
 	}
+	
 
 }
 

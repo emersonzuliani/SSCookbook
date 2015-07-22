@@ -80,5 +80,9 @@ echo form_close();
 </table>
 </div>
 
+<?php 
+  echo anchor("/categoria/categoria", "Voltar", array('class' => 'btn btn-default btn-sm active', 'role' => 'button'));
+?>
+
 
 

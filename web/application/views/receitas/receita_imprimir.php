@@ -29,7 +29,18 @@
 			
 	<?php endforeach; ?>	
 			
+	<p> 
+	<?php 
+		$js = 'onClick=window.print()';
+		echo form_button(array("class" => "btn btn-default btn-sm"),'Imprimir' ,$js);	
+		
+		$js2 = 'onClick=self.close()';
+		echo form_button(array("class" => "btn btn-default btn-sm"),'Fechar' ,$js2);
+		
+	?>
+	</p>
+	
 	</div>
-
+	
 </body>
 </html>

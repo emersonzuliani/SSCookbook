@@ -240,6 +240,7 @@ echo form_button(array(
 		"content" => "Limpar",
 		"type" => "reset"));
 
+
 echo form_close();
 
 

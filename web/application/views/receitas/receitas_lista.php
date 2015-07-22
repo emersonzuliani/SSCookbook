@@ -45,6 +45,15 @@
 		
 	</tr>
 	<?php endforeach; ?>
+	<br/>
+	<br/>
+	
 </table>
 </div>
+
+<?php 
+	$js = 'onClick=history.back()';
+	echo form_button(array("class" => "btn btn-default"),'Voltar' ,$js);
+?>
+
 </div>
